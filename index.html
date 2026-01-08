@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AVI 2026 Workshop — Distributed Agency and Multimodal AI Interfaces</title>
+  <meta name="description" content="AVI 2026 Workshop: Distributed Agency and Multimodal AI Interfaces — Meaning, Human-Centric Implications, and Pathways to Design and Implementation." />
+
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#101938;
+      --muted:#b7c0e0;
+      --text:#eef2ff;
+      --accent:#7c3aed;
+      --accent2:#22c55e;
+      --line:rgba(255,255,255,.10);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --max: 1050px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: radial-gradient(900px 450px at 20% -10%, rgba(124,58,237,.35), transparent 70%),
+                  radial-gradient(900px 450px at 90% 10%, rgba(34,197,94,.20), transparent 65%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit}
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+    .wrap{max-width:var(--max); margin:0 auto; padding:24px}
+    .nav{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(10px);
+      background: rgba(11,16,32,.65);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .brand{display:flex; align-items:center; gap:10px; text-decoration:none}
+    .logo{
+      width:34px; height:34px; border-radius:10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 8px 20px rgba(124,58,237,.25);
+      flex: 0 0 auto;
+    }
+    .brand span{font-weight:850; letter-spacing:.2px}
+    .links{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .links a{
+      text-decoration:none;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:12px;
+      transition: all .2s ease;
+      font-weight:650;
+    }
+    .links a:hover{color:var(--text); background:rgba(255,255,255,.06)}
+    .hero{padding:34px 0 8px}
+    .pill{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:8px 12px; border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-weight:700;
+    }
+    .dot{width:9px; height:9px; border-radius:99px; background:var(--accent2); box-shadow:0 0 0 6px rgba(34,197,94,.15)}
+    h1{font-size: clamp(30px, 5vw, 52px); line-height:1.06; margin:14px 0 10px; letter-spacing:-.8px}
+    .sub{font-size: clamp(16px, 2vw, 19px); color:var(--muted); max-width:80ch}
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px; padding:11px 14px;
+      border-radius:14px; text-decoration:none;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      font-weight:800;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(34,197,94,.85));
+      border-color: transparent;
+      box-shadow: 0 12px 28px rgba(124,58,237,.20);
+    }
+
+    .grid{display:grid; grid-template-columns: 1.15fr .85fr; gap:18px; align-items:start}
+    @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      background: rgba(16,25,56,.75);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .card.pad{padding:18px}
+    section{padding:16px 0}
+    h2{margin:0 0 10px; font-size:22px; letter-spacing:-.2px}
+    h3{margin:14px 0 8px; font-size:16px; letter-spacing:-.1px}
+    .muted{color:var(--muted)}
+    .two{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
+    @media (max-width: 820px){ .two{grid-template-columns:1fr} }
+
+    .tag{
+      display:inline-flex; align-items:center;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-weight:800; font-size:12px;
+      margin-right:8px; margin-bottom:8px;
+    }
+    .list{margin:0; padding-left:18px}
+    .list li{margin:6px 0}
+
+    .table{width:100%; border-collapse:collapse; overflow:hidden; border-radius:16px}
+    .table th, .table td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      vertical-align:top;
+    }
+    .table th{color:var(--muted); text-align:left; font-size:13px; letter-spacing:.2px}
+
+    details{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      background: rgba(255,255,255,.04);
+      padding:10px 12px;
+    }
+    details + details{margin-top:10px}
+    summary{
+      cursor:pointer;
+      font-weight:850;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    summary::-webkit-details-marker{display:none}
+    summary .sublabel{color:var(--muted); font-weight:700; font-size:13px}
+    .bio{margin:10px 0 0; color:var(--muted)}
+    .footer{
+      padding:26px 0 40px;
+      color:rgba(183,192,224,.85);
+      border-top:1px solid var(--line);
+      margin-top:10px;
+    }
+    .smallprint{font-size:13px}
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top" aria-label="Home">
+        <div class="logo" aria-hidden="true"></div>
+        <span>AVI 2026 Workshop</span>
+      </a>
+      <nav class="links" aria-label="Site navigation">
+        <a href="#overview">Overview</a>
+        <a href="#motivation">Motivation</a>
+        <a href="#topics">Topics</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#audience">Audience</a>
+        <a href="#organizers">Organizers</a>
+        <a href="#bios">Bios</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    <div class="hero">
+      <div class="pill"><span class="dot" aria-hidden="true"></span> Half-day workshop • Co-located with <strong>AVI 2026</strong></div>
+
+      <h1>
+        Distributed Agency and Multimodal AI Interfaces
+      </h1>
+
+      <p class="sub">
+        <strong>Meaning, Human-Centric Implications, and Pathways to Design and Implementation</strong><br/>
+        A discussion-driven workshop on how agency is increasingly distributed across humans and intelligent systems—and what this means for intent, responsibility, trust, and authorship in interactive AI.
+      </p>
+
+      <div class="cta-row">
+        <!-- Replace these with real links when available -->
+        <a class="btn primary" href="#organizers">Contact organizers</a>
+        <a class="btn" href="#schedule">View schedule</a>
+        <a class="btn" href="#topics">Topics of interest</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section id="overview" class="card pad" aria-label="Workshop overview">
+        <h2>Workshop overview</h2>
+        <p class="muted">
+          This half-day workshop will be held in conjunction with <strong>AVI 2026</strong>, bringing together researchers and practitioners interested in
+          <strong>multimodal AI systems</strong>, <strong>human–AI interaction</strong>, and <strong>creativity</strong>.
+          The workshop focuses on how <strong>agency is increasingly distributed</strong> across humans and intelligent systems, and how this shift challenges existing
+          assumptions about intent, responsibility, trust, and authorship in interactive AI.
+        </p>
+
+        <div style="margin-top:12px;">
+          <span class="tag">Multimodal AI</span>
+          <span class="tag">Distributed agency</span>
+          <span class="tag">HCI & UX</span>
+          <span class="tag">Co-creativity</span>
+          <span class="tag">Trust & reliance</span>
+        </div>
+      </section>
+
+      <aside class="card pad" aria-label="Key information">
+        <h2>Key information</h2>
+        <ul class="list muted">
+          <li><strong>Event:</strong> Co-located with AVI 2026</li>
+          <li><strong>Format:</strong> Half-day, interactive + discussion-driven</li>
+          <li><strong>Core methods:</strong> Talks, discussion, participatory foresight</li>
+          <li><strong>Hands-on activity:</strong> Futures Triangle</li>
+        </ul>
+        <p class="muted smallprint" style="margin-top:12px;">
+          Tip: once you have the official AVI 2026 page for this workshop, replace the buttons above with submission/registration links.
+        </p>
+      </aside>
+    </div>
+
+    <section id="motivation">
+      <div class="card pad">
+        <h2>Motivation and objectives</h2>
+        <div class="two">
+          <div>
+            <p class="muted">
+              Multimodal AI systems promise more <strong>natural, expressive, and creatively rich interactions</strong>, yet they also complicate how users convey intent and maintain control.
+              As these systems rapidly enter everyday practice, <strong>agency becomes shared</strong> between humans and machines, raising urgent questions about:
+            </p>
+            <ul class="list muted">
+              <li>responsibility and accountability</li>
+              <li>trust and appropriate reliance</li>
+              <li>creative authorship and co-creation</li>
+              <li>meaningful human–AI decision-making</li>
+            </ul>
+          </div>
+          <div>
+            <p class="muted">
+              The goal of this workshop is to <strong>clarify the concept of distributed agency</strong> and to explore its implications for <strong>human and artificial creativity</strong>.
+              Through presentations and hands-on activities, participants will collectively develop <strong>human-centric design pathways</strong> for multimodal AI interfaces.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="topics">
+      <div class="card pad">
+        <h2>Topics of interest</h2>
+        <p class="muted">The workshop invites contributions addressing (but not limited to):</p>
+        <div style="margin-top:8px;">
+          <span class="tag">Multimodal interfaces</span>
+          <span class="tag">Human–AI interaction</span>
+          <span class="tag">Multi-agent systems and agency</span>
+          <span class="tag">Trustworthy and explainable AI</span>
+          <span class="tag">Human creativity and artificial creativity</span>
+          <span class="tag">Co-creativity and collaborative systems</span>
+          <span class="tag">Designed friction and intentional constraints</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="schedule">
+      <div class="card pad">
+        <h2>Workshop format and schedule</h2>
+        <p class="muted">
+          The workshop is designed as an <strong>interactive and discussion-driven space</strong>, combining scholarly presentations with participatory foresight activities.
+        </p>
+
+        <h3>Structure</h3>
+        <div style="overflow:auto; margin-top:10px;">
+          <table class="table" aria-label="Schedule table">
+            <thead>
+              <tr>
+                <th style="width:120px;">Time</th>
+                <th>Session</th>
+                <th style="width:320px;">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>09:00–09:15</td>
+                <td>Opening session</td>
+                <td class="muted">Welcome and framing</td>
+              </tr>
+              <tr>
+                <td>09:15–09:55</td>
+                <td>Keynote + Q&amp;A</td>
+                <td class="muted">
+                  <strong>Prof. Dr. Luca Viganò</strong><br/>
+                  A creative perspective on agency at the intersection of AI, fairy tales, and the arts
+                </td>
+              </tr>
+              <tr>
+                <td>09:55–10:45</td>
+                <td>Paper presentations + discussion</td>
+                <td class="muted">Session 1</td>
+              </tr>
+              <tr>
+                <td>10:45–11:15</td>
+                <td>Coffee break</td>
+                <td class="muted">—</td>
+              </tr>
+              <tr>
+                <td>11:15–11:50</td>
+                <td>Paper presentations + discussion</td>
+                <td class="muted">Session 2</td>
+              </tr>
+              <tr>
+                <td>11:50–12:50</td>
+                <td>Futures Triangle activity</td>
+                <td class="muted">Collaborative foresight + scenario building</td>
+              </tr>
+              <tr>
+                <td>12:50–13:00</td>
+                <td>Closing remarks</td>
+                <td class="muted">Synthesis and next steps</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Futures Triangle activity</h3>
+        <p class="muted">
+          Participants will collaboratively explore <strong>possible future scenarios</strong> related to distributed agency and multimodal AI. The activity aims to:
+        </p>
+        <ol class="muted" style="margin:0; padding-left:18px;">
+          <li>Use the Futures Triangle as a structured foresight method</li>
+          <li>Articulate plausible futures grounded in current research and discussion</li>
+          <li>Identify key points of convergence across perspectives</li>
+          <li>Outline shared next steps for the workshop community</li>
+          <li>Explore the development of a <strong>collective publication</strong></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="audience">
+      <div class="card pad">
+        <h2>Target audience</h2>
+        <p class="muted">The workshop is intended for:</p>
+        <div class="two">
+          <ul class="list muted">
+            <li>HCI, UX, and interaction design researchers</li>
+            <li>UI/UX designers and creative practitioners</li>
+            <li>AI and machine learning researchers</li>
+            <li>Scholars in creativity studies</li>
+          </ul>
+          <ul class="list muted">
+            <li>Researchers in Explainable and Trustworthy AI</li>
+            <li>Futures studies researchers</li>
+            <li>Ethics, law, and STS scholars interested in responsibility, trust, and governance</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="organizers">
+      <div class="card pad">
+        <h2>Organizers</h2>
+
+        <h3>Main contact</h3>
+        <p class="muted" style="margin-top:0;">
+          <strong>Umberto Domanti</strong> — Free University of Bozen-Bolzano<br/>
+          📧 <a href="mailto:Umberto.Domanti@student.unibz.it">Umberto.Domanti@student.unibz.it</a>
+        </p>
+
+        <h3>Organizing committee</h3>
+        <ul class="list muted">
+          <li>Umberto Domanti — Free University of Bozen-Bolzano</li>
+          <li>Angela Faiella — University of Bologna</li>
+          <li>Caterina Moruzzi — University of Edinburgh</li>
+          <li>Chiara Natali — University of Milano-Bicocca</li>
+          <li>Anna Rezk-Parker — University of Glasgow</li>
+          <li>Mario Mirabile — University of Santiago de Compostela; University of Bologna</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="bios">
+      <div class="card pad">
+        <h2>Organizers’ bios</h2>
+        <p class="muted">Click to expand each bio.</p>
+
+        <details>
+          <summary>
+            <span>Umberto Domanti <span class="sublabel">— Free University of Bozen-Bolzano</span></span>
+            <span class="sublabel">+</span>
+          </summary>
+          <p class="bio">
+            Umberto Domanti is a second-year PhD student in the Experimental Research through Design, Art, and Technologies program at the Free University of Bozen-Bolzano.
+            He graduated in Applied Cognitive Psychology at the University of Trieste. His interests include the study of episodic and semantic memory, imagination, and creativity,
+            with a particular focus on how these processes contribute to the imagination of alternative pasts or futures. His PhD research lies within Human–Computer Interaction (HCI),
+            drawing on theories and methods from experimental cognitive psychology. He investigates human and artificial creativity by looking at the underlying mechanisms that lead to a
+            potential creative outcome. Moreover, Umberto integrates qualitative methodologies, such as speculative design, to investigate and reflect on the future possibilities of Human-AI
+            Collaboration. He is also a Junior Member within the International Society for the Study of Creativity and Innovation (ISSCI). During the first year of his PhD, Umberto served
+            as Local Chair for the ninth edition of the Marconi Institute for Creativity (MIC) Conference, held in Bolzano.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            <span>Angela Faiella <span class="sublabel">— University of Bologna</span></span>
+            <span class="sublabel">+</span>
+          </summary>
+          <p class="bio">
+            Angela Faiella is a Research Fellow at the Marconi Institute for Creativity (MIC), a multidisciplinary research lab at the University of Bologna (Italy), and a subject expert
+            for the university course Cyber-Creativity and Innovation. She is also a member of the AI Task Force within the International Society for the Study of Creativity and Innovation
+            (ISSCI). She obtained her PhD in Cognitive Psychology from the University of Trieste (Italy) in 2023. Her research focuses on the cognitive correlates of creativity and
+            imagination, with a particular interest in human–AI interaction. She investigates how individuals perceive their creative self-beliefs in the context of AI, exploring ways to
+            enhance them. Furthermore, she examines the role of creativity in future thinking, emphasizing its importance for imagining transformative and long-term futures in an era of
+            accelerated responses and decision-making. Angela has also been part of the organizing committee for the Marconi Institute for Creativity Conference, an international event
+            dedicated to creativity research, since 2023.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            <span>Caterina Moruzzi <span class="sublabel">— University of Edinburgh</span></span>
+            <span class="sublabel">+</span>
+          </summary>
+          <p class="bio">
+            Caterina Moruzzi is a Chancellor's fellow (tenure-track assistant professor) in the Institute for Design Informatics, University of Edinburgh. Her research lies at the intersection
+            between human and artificial creativity, philosophy of art, and the philosophy of Artificial Intelligence (AI). As BRAID Research Fellow, she is leading a project in collaboration
+            with Adobe to promote the responsible integration of AI tools into creative practices. Caterina actively engages in panel discussions and conferences that convene stakeholders from
+            academia, industry, and policy-making spheres to discuss the impact of AI on the creative sector. To promote interdisciplinary and intersectoral collaborations on the topic, in 2024,
+            she started the research cluster "Creativity, AI, and the Human" at the Edinburgh Futures Institute. Caterina holds a Ph.D. in philosophy from the University of Nottingham (2018)
+            and an artist diploma in piano performance from the Conservatorio G.B. Martini, Bologna (2014). Her scholarly work has been published in journals such as the European Journal for
+            Philosophy of Science, British Journal of Aesthetics, ACM Communication Design Quarterly, Leonardo (MIT Press), IEEE CG&A, as well as in conference proceedings, including the CHI
+            conference on Human Factors in Computing Systems and the International Conference on Computational Creativity (ICCC).
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            <span>Chiara Natali <span class="sublabel">— University of Milano-Bicocca</span></span>
+            <span class="sublabel">+</span>
+          </summary>
+          <p class="bio">
+            Chiara Natali is a PhD Candidate in Computer Science at the University of Milano-Bicocca. Her research examines how intentional friction in interaction design (such as cognitive forcing
+            functions and desirable difficulties) can sustain user agency and appropriate reliance in human–AI decision-making, with applications in medical AI and decision support. She has teaching
+            experience in interaction design and HCI (2023-2024), delivered hands-on tutorials on assessing reliance (INTERACT23, HHAI23), and co-organized international workshops on “Frictional AI”
+            (HHAI 2024–2025) and “Algorithmic Authority & AI Influence in Decision Settings” (HAI 2024), alongside service as Proceedings Chair and Publicity Chair for HHAI 2025. Her work has been
+            recognized with the David B. Martin Best Paper Award (ECSCW 2025), Best Paper at the XAI World Conference (2024), and Best Doctoral Consortium Paper at ACM CHItaly (2023). She was awarded
+            the Swiss Government Excellence Scholarship (ESKAS No. 2024.0002) for a year as Visiting Research Fellow at IDSIA (SUPSI), Lugano (2024-2025). She contributes to national and international
+            standardization through UNINFO/UNI CT 533 (Italian mirror to ISO/IEC JTC 1/SC 42), focusing on trustworthiness.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            <span>Anna Rezk-Parker <span class="sublabel">— University of Glasgow</span></span>
+            <span class="sublabel">+</span>
+          </summary>
+          <p class="bio">
+            Anna Rezk-Parker is a Postdoctoral Research Associate in Computer Science at the University of Glasgow, working on developing tools and methodologies for users to engage in participatory audits
+            of search and information retrieval systems as part of the Responsible AI UK-funded PHAWM project. Her research interests include recommender systems, personalization, AI in media and journalism,
+            auditing for responsible AI, and designing for user agency. Previously, she completed her PhD in Design Informatics at the University of Edinburgh in collaboration with the BBC R&D, funded by the
+            Arts and Humanities Research Council. In her interdisciplinary research practice, she examines how user agency can contribute to addressing challenges that arise in automated systems, which are paradoxically
+            designed to relieve users of agency. Her work has been published at various ACM venues and has been recognized with an Honorable Mention award at CHI and a Best Paper award at ICIDS. As a researcher on the
+            Right 2 Roam project at Abertay University, she conducted community-driven social justice research through serious game workshops to inform evidence-based urban design policy. She also contributed to the Fixing
+            the Future project, developing Right to Repair ideation cards as an awareness-building tool about IoT device repair laws in the UK and EU.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            <span>Mario Mirabile <span class="sublabel">— University of Santiago de Compostela; University of Bologna</span></span>
+            <span class="sublabel">+</span>
+          </summary>
+          <p class="bio">
+            Mario Mirabile is a Research Fellow at the University of Bologna, Italy. He is pursuing a PhD in Information Technology at the University of Santiago de Compostela (USC), Spain. He is currently developing
+            trust-aware multi-agent systems designed to improve financial literacy and support individual and collective empowerment. His research interests focus on Trustworthy Artificial Intelligence, multi-agent systems,
+            socio-technical governance, human-AI interaction, finance, and creativity. Mario is a Research Fellow at the Future Impact Group + Oxford Martin AI Governance Initiative (2025-present), a member of the Italian
+            Association for Artificial Intelligence (2025-present), a member of the Coalition for Independent Technology Research (2023-present), and the Executive Officer & Secretary of the International Political Science
+            Association (2021-present). He served at a European tech-policy research center (2024), contributing to high-profile studies for the European Commission on AI and digitalization. He held research roles at the
+            Centro Singular de Investigación en Tecnoloxías Intelixentes (CiTIUS) in Spain (2024) and senior AI consulting positions (2023-2024), with applied experience in computer vision and human–machine interfaces for
+            industry. As co-founder and Executive Vice-President of “South Working - Lavorare dal Sud” (2020-present), he led national innovation initiatives and contributed to policy on digital infrastructure and remote work.
+            He also advised the Italian Ministry of Culture (2021-2022) as an invited expert, shaping digital transformation initiatives that impacted over 2,000 local administrations. His work has been featured in more than
+            600 media pieces (e.g., BBC, Financial Times, Deutsche Welle, Corriere della Sera).
+          </p>
+        </details>
+
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap" style="padding:0;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <div class="smallprint">
+            © <span id="year"></span> AVI 2026 Workshop • Distributed Agency and Multimodal AI Interfaces
+          </div>
+          <div class="smallprint">
+            <a href="#top">Back to top</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Make the "+" in summaries feel responsive (optional cosmetic)
+    document.querySelectorAll("details").forEach(d => {
+      const plus = d.querySelector("summary .sublabel:last-child");
+      const sync = () => { if (plus) plus.textContent = d.open ? "–" : "+"; };
+      sync();
+      d.addEventListener("toggle", sync);
+    });
+  </script>
+</body>
+</html>
