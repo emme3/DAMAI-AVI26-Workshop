@@ -180,29 +180,38 @@
     }
 
     /* Highlights strip */
-    .highlights{
-      display:flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      align-items:center;
-      padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--soft);
-    }
-    .logo{
-      width: 120px;
-      height: 42px;
-      border-radius: 10px;
-      border: 1px dashed #d1d5db;
-      background: #fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color: #6b7280;
-      font-size: 12px;
-      font-weight: 700;
-    }
+.highlights{
+  display:flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items:center;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--soft);
+}
+
+.taglist{
+  list-style: none;
+  display:flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--muted);
+  font-weight: 650;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
 
     /* Content block */
     .block{
@@ -401,26 +410,29 @@
     </p>
     <div class="pill">Keynote + Paper presentations + Futures Triangle activity</div>
 
-<hr class="sep" />
+
+
+    <hr class="sep" />
 
 <section id="overview" aria-labelledby="overview-title">
   <h2 class="section-title" id="overview-title">Workshop overview</h2>
 
-  <div class="highlights" aria-label="Key topics">
-    <ul class="taglist" role="list">
-      <li class="tag">Multimodal AI</li>
-      <li class="tag">Agency</li>
-      <li class="tag">Interfaces</li>
-      <li class="tag">Creativity</li>
-      <li class="tag">Multi-agent systems</li>
-      <li class="tag">Human–AI interaction</li>
-      <li class="tag">Human-centric AI</li>
-    </ul>
+  <!-- Tags only -->
+  <div class="highlights" aria-label="Tags">
+    <span class="tag">#multimodal AI</span>
+    <span class="tag">#agency</span>
+    <span class="tag">#interfaces</span>
+    <span class="tag">#creativity</span>
+    <span class="tag">#multi-agent systems</span>
+    <span class="tag">#human–AI interaction</span>
+    <span class="tag">#human-centric AI</span>
   </div>
 
   <hr class="sep" />
 
   <div class="block">
+
+    
 
         <p>
           This half-day workshop will be held in conjunction with <strong>AVI 2026</strong>, bringing together researchers and practitioners interested in
