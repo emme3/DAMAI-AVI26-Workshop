@@ -126,21 +126,24 @@
 .hero img{
   width: 100%;
   height: 260px;
-  object-fit: cover;
+  object-fit: cover;            /* mobile: aesthetic crop */
   border-radius: var(--radius);
   border: 1px solid var(--line);
   background: var(--soft);
   box-shadow: var(--shadow);
-  display:block;
+  display: block;
 }
 
-/* Desktop/laptop: full-viewport height */
+/* Desktop / laptop: show full image, no zoom, no crop */
 @media (min-width: 900px){
   .hero img{
-    height: calc(100vh - 68px); /* subtract sticky nav height */
-    border-radius: 0;           /* optional: true full-bleed look */
+    height: auto;                /* let image define height */
+    max-height: calc(100vh - 68px); /* stay within viewport */
+    object-fit: contain;         /* ✅ full image visible */
+    border-radius: 0;
     border-left: 0;
     border-right: 0;
+    background: var(--soft);     /* visible if letterboxing occurs */
   }
 }
 
