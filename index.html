@@ -299,14 +299,16 @@
       display:block;
     }
 
-/* === Keynote avatar: taller box + full image visible === */
+
+    /* === Keynote avatar: box adapts to photo === */
 .person-card[aria-label="Keynote speaker"] .avatar{
-  width: 140px;
-  height: 180px;            /* taller than organizers */
-  object-fit: contain;     /* show full image */
-  object-position: center;
-  background: var(--soft); /* letterboxing background */
+  width: 140px;     /* keep consistent column width */
+  height: auto;     /* ✅ box grows with image */
+  max-height: 240px;/* optional safety limit */
+  object-fit: contain;
+  background: none; /* no letterboxing needed */
 }
+
 
     
     @media (max-width: 700px){
